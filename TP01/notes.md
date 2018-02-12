@@ -42,3 +42,11 @@ De cette manière, on pourra faire l'incrémentation de manière concurrente.
 ### Question 4 ###
 
 La variable ```value``` est partagée entre différents threads, tandis que ```last``` est locale à chaque thread.
+
+## Exercice 2 ##
+
+Remarques préliminaires :
+
+- On Définit une classe qui générera un identifiant pour chaque nouveau thread.
+- L'identifiant du thread est local au thread.
+- Les deux implémentations de *MyThread* (i.e ```MyThread21``` et ```MyThread22```) ont le même code en commun. La différence est que dans la première version, l'identifiant du thread est initialisé **à l'exécution** du thread, tandis que dans le deuxième version, l'identifiant est initialisé **à la construction** du thread.
