@@ -18,7 +18,7 @@ public class MonObjet {
 		return value;
 	}
 
-	public void add() {
+	public synchronized void add() {
 		last.set(new Integer(last.get() + 1));
 		value = value + 1;
 		valuebis = valuebis + 1;
