@@ -1,4 +1,3 @@
-
 public class MyThread2 extends Thread {
 	public MonObjet o;
 	public int nbwrite;
@@ -15,6 +14,7 @@ public class MyThread2 extends Thread {
 			this.yield();
 		}
 		// System.out.println("la thread "+ThreadID.get()+
-		System.out.println("value" + o.value + ", " + "valuebis" + o.valuebis + " et " + " last " + o.last.get());
+		System.out.println("value" + o.value + ", " + "valuebis" + o.valuebis
+				+ " et " + " last " + o.last.get());
 	}
 }
