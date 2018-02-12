@@ -2,8 +2,8 @@ public class MonObjet {
 
 	ThreadLocal<Integer> last;// nb ecriture de chaque thread
 
-	int value;// valeur commune
-	int valuebis;// valeur commune
+	int value;			// valeur commune
+	int valuebis;		// valeur commune
 
 	public MonObjet(int init) {
 		value = init;
