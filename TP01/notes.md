@@ -26,3 +26,15 @@ value: 5994, valuebis: 5994 et last: 0
 Donc, l'instruction de type ``` x = x + 1 ``` n'est pas atomique.
 
 ### Question 3 ###
+
+Il faudra utiliser un moniteur au niveau de la classe ```MonObjet``` de la manière suivante :
+
+```java
+// Dans MonObjet
+public synchronized void add() {
+    last.set(new Integer(last.get() + 1));
+    value = value + 1;
+    valuebis = valuebis + 1;
+}
+```
+De cette manière, on pourra faire l'incrémentation de manière concurrente.
