@@ -38,3 +38,7 @@ public synchronized void add() {
 }
 ```
 De cette manière, on pourra faire l'incrémentation de manière concurrente.
+
+### Question 4 ###
+
+La variable ```value``` est partagée entre différents threads, tandis que ```last``` est locale à chaque thread.
