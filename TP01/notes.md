@@ -45,7 +45,7 @@ La variable ```value``` est partagée entre différents threads, tandis que ```l
 
 ## Exercice 2 ##
 
-Remarques préliminaires :
+**Remarques préliminaires**
 
 - On Définit une classe qui générera un identifiant pour chaque nouveau thread.
 - L'identifiant du thread est local au thread.
@@ -54,3 +54,44 @@ Remarques préliminaires :
 Je n'ai pas remarqué de différence entre les deux versions.
 
 ## Exercice 3 ##
+
+On veut tester le comportement d'un programme multithread manipulant une variable
+de classe partagée issue de ```Main```
+
+### Remarque préliminaire ###
+
+Dans l'hypothèse où ```cur``` ∈ ]-∞, +∞[, on peut dire que ce programme peut ne pas terminer.
+En effet, il existe une exécution tel que le thread ```MyObject``` ne termine pas.
+
+Dans ```MyObject```, l'exécution se termine lorsque ```cur = 10```. Or, ```cur```
+est réinitialisé à ```Main.check``` à chaque que la condition ```Main.check > cur```
+est vrai dans la boucle *for* dans ```MyObject```.
+
+De plus, dans ```Stop```, ```Main.check``` est incrémenté jusqu'à atteindre la valeur ```11```.
+
+Il suffit donc que le thread ```Stop``` se lance en tout premier, et ceux,
+durant toute son exécution, puis termine (avec en post-condition ```Main.check = 11```),
+et que le thread ```MyObject``` se lance pour avoir l'absence de terminaison du programme
+(```cur != 10``` ne sera donc jamais vrai dans cette exécution).
+
+On serait tenté de dire que dans la pratique,
+même si cette exécution arrivait, ```MyObject``` terminera, même si ```cur > 11```,
+car les valeurs de ```cur``` sont bornées en Java
+(```cur``` ∈ [-2147483648, 2147483647], voir la [spec][]).
+Par conséquent, lorsque ```Main.check``` depassera la valeur maximale d'un ```int```,
+par dépassement arithmétique (arithmetic overflow) on aura ```cur < 10```.
+Or, on teste ```Main.check > cur``` à chaque boucle, donc cette condition
+sera vrai lors du dépassement arithmétique, et ```cur``` sera mis à 11.
+
+
+### Analyse du comportement du programme ###
+
+
+** Avec le mot-clé ```volatile```**
+
+
+** Sans le mot-clé ```volatile```**
+
+---
+
+[spec]: https://docs.oracle.com/javase/specs/jls/se7/html/jls-4.html#jls-4.2
