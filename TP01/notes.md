@@ -51,32 +51,6 @@ Remarques préliminaires :
 - L'identifiant du thread est local au thread.
 - Les deux implémentations de *MyThread* (i.e ```MyThread21``` et ```MyThread22```) ont le même code en commun. La différence est que dans la première version, l'identifiant du thread est initialisé **à l'exécution** du thread, tandis que dans le deuxième version, l'identifiant est initialisé **à la construction** du thread.
 
-Après l'exécution du programme avec la première version, voici une sortie possible qui a été générée:
+Je n'ai pas remarqué de différence entre les deux versions.
 
-```
-Le thread 0
-Le thread 9
-Le thread 8
-Le thread 7
-Le thread 6
-Le thread 5
-Le thread 4
-Le thread 3
-Le thread 2
-Le thread 1
-Le thread n° 0 apres le sommeil
-Le thread n° 3 apres le sommeil
-Le thread n° 5 apres le sommeil
-Le thread n° 4 apres le sommeil
-Le thread n° 1 apres le sommeil
-Le thread n° 8 apres le sommeil
-Le thread n° 7 apres le sommeil
-Le thread n° 6 apres le sommeil
-Le thread n° 2 apres le sommeil
-Le thread n° 9 apres le sommeil
-```
-
-Après l'exécution du programme avec la deuxième version, voici une sortie possible qui a été générée:
-
-```
-```
+## Exercice 3 ##
