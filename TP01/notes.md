@@ -78,7 +78,7 @@ et que le thread ```MyObject``` se lance pour avoir l'absence de terminaison du 
 
 ** Avec le mot-clé ```volatile```**
 
-Nous avons (toujours?) systématiquement l'affichage suivant:
+Nous avons (toujours ?) systématiquement l'affichage suivant:
 
 ```
 check = 1 cur = 0
@@ -98,6 +98,17 @@ received 11 stop
 
 ** Sans le mot-clé ```volatile```**
 
+Le programme ne termine pas, et ceux, malgré l'appel de ```Thread.sleep()```.
+
+### Explication ###
+
+Cela est dû au fait que lorsqu'on utilise le mot-clé volatile, on indique que la variable sera modifié par plusieurs threads. De ce fait, la valeur de la variable ```Main.check``` ne sera pas placé dans le cache cache locale d'un thread.
+
+De plus, l'accès à une variable volatile fonctionne plus ou moins comme si on la manipulait dans un bloc *synchronized*, mais appliqué à la variable elle-même.
+
+Source - [The volatile keyword in Java]
+
 ---
 
 [spec]: https://docs.oracle.com/javase/specs/jls/se7/html/jls-4.html#jls-4.2
+[The volatile keyword in Java]: https://javamex.com/tutorials/synchronization_volatile.shtml
