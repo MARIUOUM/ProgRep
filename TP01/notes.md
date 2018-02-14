@@ -74,21 +74,27 @@ durant toute son exécution, puis termine (avec en post-condition ```Main.check 
 et que le thread ```MyObject``` se lance pour avoir l'absence de terminaison du programme
 (```cur != 10``` ne sera donc jamais vrai dans cette exécution).
 
-On serait tenté de dire que dans la pratique,
-même si cette exécution arrivait, ```MyObject``` terminera, même si ```cur > 11```,
-car les valeurs de ```cur``` sont bornées en Java
-(```cur``` ∈ [-2147483648, 2147483647], voir la [spec][]).
-Par conséquent, lorsque ```Main.check``` depassera la valeur maximale d'un ```int```,
-par dépassement arithmétique (arithmetic overflow) on aura ```cur < 10```.
-Or, on teste ```Main.check > cur``` à chaque boucle, donc cette condition
-sera vrai lors du dépassement arithmétique, et ```cur``` sera mis à 11.
-
-
 ### Analyse du comportement du programme ###
-
 
 ** Avec le mot-clé ```volatile```**
 
+Nous avons (toujours?) systématiquement l'affichage suivant:
+
+```
+check = 1 cur = 0
+check = 2 cur = 1
+check = 3 cur = 2
+check = 4 cur = 3
+check = 5 cur = 4
+check = 6 cur = 5
+check = 7 cur = 6
+check = 8 cur = 7
+check = 9 cur = 8
+check = 10 cur = 9
+coucou
+received 11 stop
+
+```
 
 ** Sans le mot-clé ```volatile```**
 
