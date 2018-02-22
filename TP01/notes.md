@@ -108,6 +108,12 @@ De plus, l'accès à une variable volatile fonctionne plus ou moins comme si on 
 
 Source - [The volatile keyword in Java]
 
+## Exercice 4 ##
+
+Remarque concernant l'énoncé:
+
+Le code indiqué dans l'énoncé est incorrect. En effet, les variable membres de la classe.
+
 ---
 
 [spec]: https://docs.oracle.com/javase/specs/jls/se7/html/jls-4.html#jls-4.2
