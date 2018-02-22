@@ -4,8 +4,8 @@ import java.util.concurrent.locks.Lock;
 
 public class Peterson2Lock implements Lock {
 
-	private boolean[] flag = new boolean[2];
-	private int victim;
+	private volatile boolean[] flag = new boolean[2];
+	private volatile int victim;
 
 	public Peterson2Lock() {
 		for (int i = 0; i < flag.length; ++i) {
