@@ -19,9 +19,9 @@ public class Peterson2Lock implements Lock {
 		int i = ThreadID.get() % 2;
 		int j = 1 - i;
 		flag[i] = true; // I want to go in Critical section
-		victim = 1;		// Ok, I go first
+		victim = i;		// Ok, I go first
 		
-		while(flag[j] && victim == 1);	// wait!!
+		while(flag[j] && victim == i);	// wait!!
 	}
 
 	@Override
