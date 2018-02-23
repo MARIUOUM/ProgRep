@@ -1,10 +1,15 @@
+import java.util.concurrent.locks.Lock;
+
 public class PetersonMain {
 
 	public static void main(String[] args) {
 
-		final Peterson p2 = new Peterson();
+		//final Lock p2 = new Peterson();
+		final int N = 10;
+		final Lock p2 = new Filter(N);
 
-		Thread[] threads = new Thread[2];
+		//Thread[] threads = new Thread[2];
+		Thread[] threads = new Thread[N];
 
 		for (int i = 0; i < threads.length; ++i) {
 
