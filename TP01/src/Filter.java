@@ -29,6 +29,7 @@ public class Filter implements Lock {
 			while (sameOrHigher(me, i) && victim[i] == me) {
 
 			}
+			
 		}
 		
 		level[me] = size - 1;
