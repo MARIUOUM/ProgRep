@@ -2,7 +2,7 @@ public class PetersonMain {
 
 	public static void main(String[] args) {
 
-		final Peterson2Lock p2 = new Peterson2Lock();
+		final Peterson p2 = new Peterson();
 
 		Thread[] threads = new Thread[2];
 

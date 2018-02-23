@@ -2,12 +2,12 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 
-public class Peterson2Lock implements Lock {
+public class Peterson implements Lock {
 
 	private volatile boolean[] flag = new boolean[2];
 	private volatile int victim;
 
-	public Peterson2Lock() {
+	public Peterson() {
 		for (int i = 0; i < flag.length; ++i) {
 			flag[i] = false;
 		}
