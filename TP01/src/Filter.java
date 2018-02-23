@@ -18,7 +18,7 @@ public class Filter implements Lock {
 
 	@Override
 	public void lock() {
-		// TODO Auto-generated method stub
+
 		int me = ThreadID.get();
 
 		for (int i = 0; i < size; i++) {
@@ -69,8 +69,9 @@ public class Filter implements Lock {
 
 	@Override
 	public void unlock() {
-		// TODO Auto-generated method stub
 
+		int me = ThreadID.get();
+		level[me] = IDLE;
 	}
 
 }
