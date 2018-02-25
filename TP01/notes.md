@@ -159,7 +159,7 @@ le lock après le 10ème thread. Or, on n'a pas plus de 10 threads qui font ```l
 
 C'est ABSURDE.
 
-On ne peut donc pas avoir 10 threads simultanément au niveau 0.
+On ne peut donc pas avoir 10 threads simultanément au niveau 1.
 
 **(c)**
 
