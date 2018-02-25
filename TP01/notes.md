@@ -221,8 +221,6 @@ Les question e, f et g pourront être répondue à travers la question *i*
 Si un thread est en section critique, alors tous les autres threads seront au plus
 au niveau *n - 2* (*n* étant le nombre de threads)
 
-**(i)**
-
 ---
 
 [spec]: https://docs.oracle.com/javase/specs/jls/se7/html/jls-4.html#jls-4.2
