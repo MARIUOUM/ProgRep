@@ -1,6 +1,11 @@
 
 # Programmation répartie -  TP n° 2 #
 
+> Auteurs
+
+- Fekih Ahmed Meriem
+- JEAN-PIERRE Luxon
+
 ## Exercice n° 1 ##
 
 > Question 1
@@ -199,10 +204,11 @@ Toujours dans la class ```Sync``` :
 final static class Sync {
 	private int readers = 0;
 	private int writers = 0;
-	private int wrequest_count = 0;    // Indique le nombre d'écrivains voulant écrire
+	private int wrequest_count = 0;    // Nombre d'écrivains voulant écrire
 
 	public synchronized void lockR() {
-        // Si au moins un écrivain a demandé le verrou (wrequest_count > 0), on attend
+        // Si au moins un écrivain a demandé le verrou
+        // (wrequest_count > 0), on attend
 		while (writers > 0 || wrequest_count > 0) {
 			try {
 				wait();
@@ -227,8 +233,8 @@ final static class Sync {
 			}
 		}
 		writers++;
-        // On a le verrou, plus besoin d'indiquer qu'on veut prendre le verrou
-        // on décrémente le nombre de demandes en écriture
+        // On a le verrou, plus besoin d'indiquer qu'on veut le prendre.
+        // On décrémente le nombre de demandes en écriture.
 		wrequest_count--;
 	}
 

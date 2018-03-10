@@ -6,7 +6,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 
 public class MonReadWriteLock implements ReadWriteLock {
-	
+
 	private final MonReadWriteLock.ReadLock readerLock;
 	private final MonReadWriteLock.WriteLock writerLock;
 	private final Sync sync;
@@ -27,6 +27,7 @@ public class MonReadWriteLock implements ReadWriteLock {
 		writerLock = new MonReadWriteLock.WriteLock(this);
 	}
 
+    // Version modifiée
 	final static class Sync {
 		private int readers = 0;
 		private int writers = 0;
