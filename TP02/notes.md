@@ -7,7 +7,7 @@
 
 Non, on ne peut avoir plusieurs écrivains, dans la base de données.
 En effet, l'accès en écriture, telle qu'elle est définie
-par la classe ```ReentrantReadWriteLock``` se fait par exclusion mutuelle entre les écrivains.
+par la classe ```ReentrantReadWriteLock``` se fait par exclusion entre les écrivains.
 Il ne peut donc y avoir qu'un seul écrivain à la fois.
 
 > Question 2
@@ -27,13 +27,13 @@ Cela est spécifié par la documentation de ```ReentrantReadWriteLock```.
 
 Si on remplace la ligne suivante :
 
-```
-com
+```java
+// com
 ```
 
 par cette ligne :
 
-```
+```java
 lecteur[0].interrupt();
 ```
 
@@ -59,7 +59,7 @@ il faut mettre les instructions de relâchement dans un bloc ```finally```.
 
 Dans ```Lect.java``` :
 
-```
+```java
 base.lock.readLock().lock();
 
 try {
@@ -85,7 +85,7 @@ try {
 
 Dans ```Red.java``` :
 
-```
+```java
 base.lock.writeLock().lock();
 
 try {
@@ -110,8 +110,131 @@ try {
 }
 ```
 
+
 ## Exercice n° 2 ##
 
-Avec l'implémentation ```TropSimple``` de ```ReadWriteLock```, on a l'exclusion mutuelle
+Avec l'implémentation ```TropSimple``` de ```ReadWriteLock```, on a l'exclusion
 entre les ecrivains, mais aussi entre les lecteurs et les écrivains.
 En revanche, on ne peut avoir plusieurs lecteurs qui peuvent lire en même temps.
+
+
+## Exercice n° 3 ##
+
+> Question n° 1
+
+Nous avons bien l'exclusion entre les ecrivains, puis entre lecteurs et écrivains.
+On peut également avoir plusieurs lecteurs qui lisent en même temps.
+
+> Question n° 2
+
+Supposons que des lecteurs lisent. Un écrivain **A** demande l’accés à la base de données,
+puis un lecteur **B** veux lire.
+
+Dans cette implémentation, il n'ya aucune garantie que **A** passera avant **B**,
+c'est même le contraire. En effet, lorsque **A** va essayer d'écrire, vu qu'il y a
+des lecteurs qui lisent, l'écrivain sera bloqué et devra attendre. Tandis que **B**
+pourra lire la donnée et passer avant **A**.
+
+> Question n° 3
+
+Dans la class ```Sync``` :
+
+```java
+final static class Sync {
+	private int readers = 0;
+	private int writers = 0;
+	private boolean wrequest = false;  // Indique qu'un écrivain veut écrire
+
+	public synchronized void lockR() {
+        // Si un écrivain a demandé le verrou (wrequest == true), on attend
+        while (writers > 0 || wrequest) {
+			try {
+				wait();
+			} catch (InterruptedException e) {
+			}
+		}
+		readers++;
+	}
+
+	public synchronized void unlockR() {
+		readers--;
+		notifyAll();
+	}
+
+	public synchronized void lockW() {
+        //Dès le debut on met wrequest à true
+		wrequest = true;
+		while (readers > 0 || writers > 0) {
+			try {
+				wait();
+			} catch (InterruptedException e) {
+			}
+		}
+		writers++;
+        // Après avoir incémenté le nombre d'écrivains,
+        // plus besoin de maintenir la requête.
+		wrequest = false;
+	}
+
+	public synchronized void unlockW() {
+		writers--;
+		notifyAll();
+	}
+}
+```
+
+Idée :
+
+- Si un écrivain veut écrire, il met une ```wrequest``` à ```true```.
+- A la fin de ```lockW()```, l'écrivain n'a plus besoin de maintenir ```wrequest```,
+car il a le verrou. Donc ```wrequest``` est mis à ```false```
+- Un lecteur ne pourra pas ecrire si un écrivain faire la requête (```wrequest == true```).
+
+
+> Question n° 4
+
+Toujours dans la class ```Sync``` :
+
+```java
+final static class Sync {
+	private int readers = 0;
+	private int writers = 0;
+	private int wrequest_count = 0;    // Indique le nombre d'écrivains voulant écrire
+
+	public synchronized void lockR() {
+        // Si au moins un écrivain a demandé le verrou (wrequest_count > 0), on attend
+		while (writers > 0 || wrequest_count > 0) {
+			try {
+				wait();
+			} catch (InterruptedException e) {
+			}
+		}
+		readers++;
+	}
+
+	public synchronized void unlockR() {
+		readers--;
+		notifyAll();
+	}
+
+	public synchronized void lockW() {
+        //Dès le debut on incrémente wrequest_count
+		wrequest_count++;
+		while (readers > 0 || writers > 0) {
+			try {
+				wait();
+			} catch (InterruptedException e) {
+			}
+		}
+		writers++;
+        // On a le verrou, plus besoin d'indiquer qu'on veut prendre le verrou
+        // on décrémente le nombre de demandes en écriture
+		wrequest_count--;
+	}
+
+	public synchronized void unlockW() {
+		writers--;
+		notifyAll();
+	}
+}
+```
