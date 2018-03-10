@@ -1,11 +1,12 @@
 package tp02;
+
 public class ThreadID {
 
 	private static volatile int nextID = 0;
 	private static ThreadLocalID threadID = new ThreadLocalID();
-	
+
 	private static class ThreadLocalID extends ThreadLocal<Integer> {
-		
+
 		protected synchronized Integer initialValue() {
 			return nextID++;
 		}

@@ -26,21 +26,23 @@ public class Lect extends Thread {
 
 			} catch (InterruptedException e) {
 
-				System.out.println("interompu " + ThreadID.get());
+				System.out.println("- interompu " + ThreadID.get());
 				break;
 
+			} finally {
+				
+				base.lock.readLock().unlock();
 			}
 
-			base.lock.readLock().unlock();
 			System.out.println("verrou enlevé : " + ThreadID.get() + " sort");
 
 			try {
 
-				this.sleep((long) Math.random() * base.tab.length * 100);
+				Thread.sleep((long) Math.random() * base.tab.length * 100);
 
 			} catch (InterruptedException e) {
 
-				System.out.println("interrompu en dehors: " + ThreadID.get());
+				System.out.println("- interrompu en dehors: " + ThreadID.get());
 			}
 		}
 	}

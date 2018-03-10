@@ -15,10 +15,12 @@ public class LectRed {
 			lecteur[i] = new Lect(base);
 			ecrivain[i] = new Red(base);
 		}
-		
+
 		for (int i = 0; i < TAILLE; i++) {
 			lecteur[i].start();
 			ecrivain[i].start();
 		}
+		// com
+		lecteur[0].interrupt();
 	}
 }

@@ -18,7 +18,7 @@ public class Red extends Thread {
 
 				int j = (int) (Math.random() * 100);
 
-				System.out.println(" ecrivain " + ThreadID.get() + "ecrit" + j);
+				System.out.println(" ecrivain n° " + ThreadID.get() + " ecrit -> " + j);
 
 				for (int i = 0; i < base.tab.length; i++)
 					base.tab[i] = j;
@@ -29,18 +29,20 @@ public class Red extends Thread {
 
 				System.out.println(" interompu " + ThreadID.get());
 				break;
+			
+			} finally {
+				
+				base.lock.writeLock().unlock();
 			}
 
-			base.lock.writeLock().unlock();
-
-			System.out.println(" verrou ecrivain enleve" + ThreadID.get());
+			System.out.println("- verrou ecrivain enleve " + ThreadID.get());
 
 			try {
 
 				Thread.sleep((long) Math.random() * base.tab.length * 100);
 
 			} catch (InterruptedException e) {
-				System.out.println("interompu en dehors" + ThreadID.get());
+				System.out.println("- interompu en dehors" + ThreadID.get());
 			}
 		}
 	}
