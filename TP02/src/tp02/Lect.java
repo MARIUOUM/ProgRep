@@ -16,7 +16,7 @@ public class Lect extends Thread {
 
 			try {
 
-				System.out.print(" lecteur " + ThreadID.get() + " ");
+				System.out.print(" lecteur " + ThreadID.get() + " - ");
 
 				for (int i = 0; i < base.tab.length; i++)
 					System.out.print(base.tab[i] + " ");

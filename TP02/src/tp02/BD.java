@@ -9,7 +9,7 @@ public class BD {
 
 	public BD(int l) {
 		tab = new int[l];
-		lock = new ReentrantReadWriteLock(true);
+		lock = new TropSimple();
 	}
 
 }
