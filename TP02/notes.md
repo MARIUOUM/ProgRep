@@ -39,9 +39,9 @@ lecteur[0].interrupt();
 
 alors il y aura interblocage.
 En effet, lorsque l'exception ```InterruptedException``` est lancée, puis attrapée
-dans le bloc ```catch```, à aucun moment on prend soin de libérer le verrou.
+dans le bloc ```catch```, à aucun moment on prend soin de libérer le verrou dans ce cas de figure.
 
-Voici un exmeple d'affichage en sortie :
+Voici un exemple d'affichage en sortie :
 
 ```
  lecteur 0  lecteur 1 0 0 0 0
