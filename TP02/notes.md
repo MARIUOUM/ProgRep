@@ -109,3 +109,9 @@ try {
 	base.lock.writeLock().unlock();
 }
 ```
+
+## Exercice n° 2 ##
+
+Avec l'implémentation ```TropSimple``` de ```ReadWriteLock```, on a l'exclusion mutuelle
+entre les ecrivains, mais aussi entre les lecteurs et les écrivains.
+En revanche, on ne peut avoir plusieurs lecteurs qui peuvent lire en même temps.
